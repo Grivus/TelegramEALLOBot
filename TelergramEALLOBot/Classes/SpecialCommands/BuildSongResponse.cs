@@ -5,11 +5,32 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
 
 namespace TelergramEALLOBot.Classes.SpecialCommands
 {
-	public class BuildSongResponse
+	
+	public class BuildSongResponse : ISpecialCommandBuilder
 	{
+		public static ISpecialCommandBuilder GetBuilder( ParsedMessage message )
+		{
+			List<string> tokensAbout = new List<string>() { "про ", "об ", "о ", "споём ", "нам ", "ли ", "спеть ", "спой " };
+
+			int startAbout = -1;
+			int i = 0;
+
+			while ( startAbout == -1 && i < tokensAbout.Count )
+			{
+				startAbout = message.rawMessage.Text.IndexOf( tokensAbout[ i++ ] );
+			}
+
+			if ( startAbout == -1 )
+				return new BuildStringResponse( Utils.GetRandomResponse( RequestType.NoSongs ) );
+
+			string subject = message.rawMessage.Text.Substring( startAbout + tokensAbout[ --i ].Length );
+			return new BuildSongResponse( subject );
+		}
+
 		public BuildSongResponse( string aSubject )
 		{
 			subject = aSubject;

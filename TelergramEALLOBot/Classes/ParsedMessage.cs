@@ -10,7 +10,8 @@ namespace TelergramEALLOBot.Classes
 	{
 		Question,
 		Command,
-		SpecialCommand,
+		SpecialCommand_FindSong,
+		SpecialCommand_BadJoke,
 	}
 
 	public class ParsedMessage

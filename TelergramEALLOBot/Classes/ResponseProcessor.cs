@@ -16,66 +16,18 @@ namespace TelergramEALLOBot.Classes
 
 		public string GetResponse()
 		{
-			if ( message.messageType == MessageRequestType.SpecialCommand )
+			if ( SpecialCommandsProcessorsMap.specialCommandsProcessors.ContainsKey( message.messageType ) )
 			{
-				if ( message.wordsTokens.Contains( "спой" ) )
-				{
-					int startAbout = message.rawMessage.Text.IndexOf( "про " );
-					if ( startAbout == -1 )
-					{
-						return Utils.GetRandomResponse( RequestType.NoSongs );
-					}
-
-					string subject = message.rawMessage.Text.Substring( startAbout + 4 );
-
-					BuildSongResponse songBuilder = new BuildSongResponse( subject );
-					return songBuilder.GetMessage();
-				}
-				else if (  ( message.wordsTokens.Contains( "300" ) || message.wordsTokens.Contains( "триста" ) ) )
-				{
-					return Utils.GetRandomResponse( RequestType.BadJoke );
-				}
-
-				return Utils.GetRandomResponse( RequestType.SomethingStrange ); 
+				var response = SpecialCommandsProcessorsMap.specialCommandsProcessors[ message.messageType ].Invoke( message ).GetMessage();
+				return response;
 			}
-
-			Dictionary<RequestType, int> scores = new Dictionary<RequestType, int>();
-
-			// голосование
-			foreach ( var element in RequestsTypeDataBase.requestTypeTags )
-			{
-				foreach ( var token in message.wordsTokens )
-				{
-					foreach ( var tag in element.Value )
-					{
-						if ( token.ToLower() == tag )
-						{
-							if ( scores.ContainsKey( element.Key ) == false )
-								scores.Add( element.Key, 1 );
-							else
-								scores[ element.Key ] += 1;
-						}
-					}
-
-				}
-			}
+		
+			var scores = Utils.GetScoresForMessage( message );
 
 			if (scores.Count == 0)
 				return Utils.GetRandomResponse( RequestType.SomethingStrange );
 
-			var orderedScores = scores.OrderByDescending( x => x.Value ).ToList();
-
-			List<KeyValuePair < RequestType, int> > bestCandidates = new List<KeyValuePair<RequestType, int>>();
-
-			const int kMinimalDiff = 1;
-
-			for ( int i = 0; i < orderedScores.Count; ++i )
-			{
-				if ( bestCandidates.Count == 0 )
-					bestCandidates.Add( new KeyValuePair<RequestType, int>( orderedScores[ i ].Key, orderedScores[ i ].Value ) );
-				else if ( Math.Abs( orderedScores[ i ].Value - bestCandidates[0].Value ) < kMinimalDiff )
-					bestCandidates.Add( new KeyValuePair<RequestType, int>( orderedScores[ i ].Key, orderedScores[ i ].Value ) );
-			}
+			var bestCandidates = Utils.GetBestCandidates( scores );
 
 			int randomIndex = new Random(DateTime.Now.Millisecond).Next( 0, bestCandidates.Count );
 

@@ -44,7 +44,7 @@ namespace TelergramEALLOBot.Classes
 			{ RequestType.PleaseBuy, new List<string>() { "купи" } } ,
 			{ RequestType.WhoWeAre, new List<string>() { "кто", "мы" } } ,
 			{ RequestType.WhatDoWeNeed, new List<string>() { "что","чего", "мы","хотим", "нужно", "нам"} } ,
-			{ RequestType.NoSongs, new List<string>() { "спой","споём", "споем","петь"} } ,
+			//{ RequestType.NoSongs, new List<string>() { "спой","споём", "споем","петь"} } ,
 			{ RequestType.Songs, new List<string>() { "спой","споём", "споем","петь"} } ,
 			{ RequestType.SomethingStrange, new List<string>() { "странное","странно"} } ,
 			{ RequestType.BadJoke, new List<string>() { "шутка","пошути", "пошутил"} } ,
