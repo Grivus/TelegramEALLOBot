@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,5 +69,38 @@ namespace TelergramEALLOBot.Classes
 
 			return bestCandidates;
 		}
+
+		public static HtmlNode FindRecursiveByClass( string idClass, HtmlNode currentNode )
+		{
+			return FindRecursiveByAttributeName( "class", idClass, currentNode );
+
+		}
+
+		public static HtmlNode FindRecursiveById( string id, HtmlNode currentNode )
+		{
+			return FindRecursiveByAttributeName( "id", id, currentNode );
+		}
+
+		public static HtmlNode FindRecursiveByAttributeName( string attributeName, string attributeValue, HtmlNode currentNode )
+		{
+			foreach ( var child in currentNode.ChildNodes )
+			{
+				if ( child.Attributes[ attributeName ] != null )
+				{
+					Debug.Print( child.Attributes[ attributeName ].Value );
+
+					if ( child.Attributes[ attributeName ].Value == attributeValue )
+						return child;
+
+				}
+				var result = FindRecursiveByClass( attributeValue, child );
+				if ( result != null )
+					return result;
+			}
+
+			return null;
+		}
+
+
 	}
 }

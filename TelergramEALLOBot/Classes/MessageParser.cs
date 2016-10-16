@@ -18,14 +18,24 @@ namespace TelergramEALLOBot.Classes
 			string messageText = message.Text.ToLower();
 			ParsedMessage result = new ParsedMessage();
 			result.wordsTokens = new List<string> ( messageText.Split( new char[] { '.', ',', ' ', '!', '?' } ) );
+
+			result.wordsTokens = result.wordsTokens.ConvertAll( x => x = x.ToLower() );
+
 			result.messageType = messageText.IndexOf( '?' ) != -1 ? MessageRequestType.Question : MessageRequestType.Command;
 
 			var bestCandidates = Utils.GetBestCandidates( Utils.GetScoresForMessage( result ) );
 			if ( bestCandidates.Exists( x=> x.Key == RequestType.Songs) )
 				result.messageType = MessageRequestType.SpecialCommand_FindSong;
 
+			bestCandidates = Utils.GetBestCandidates( Utils.GetScoresForMessage( result ) );
+			if ( bestCandidates.Exists( x => x.Key == RequestType.GetKittensWeather ) )
+				result.messageType = MessageRequestType.SpecialCommand_GetKittenWeather;
+
 			if ( messageText.Contains( "300" ) || messageText.Contains( "триста" ) )
 				result.messageType = MessageRequestType.SpecialCommand_BadJoke;
+
+
+
 
 			if ( messageText.Contains( "э! аллё!" ) || messageText.Contains( "э, аллё!" ) || messageText.Contains( "э, аллё" ) || messageText.Contains( "э,аллё" )
 				|| messageText.Contains( "э аллё" ) || messageText.Contains( "э алле" ) || messageText.Contains( "э, алле" ) || messageText.Contains( "э! аллё" ) )

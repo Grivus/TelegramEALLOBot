@@ -12,7 +12,8 @@ namespace TelergramEALLOBot.Classes
 		public static Dictionary<MessageRequestType, Func<ParsedMessage, ISpecialCommandBuilder> > specialCommandsProcessors = new Dictionary<MessageRequestType, Func<ParsedMessage, ISpecialCommandBuilder>>()
 		{
 			{ MessageRequestType.SpecialCommand_FindSong, BuildSongResponse.GetBuilder },
-			{ MessageRequestType.SpecialCommand_BadJoke, BuildStringResponse.GetBuilder }
+			{ MessageRequestType.SpecialCommand_BadJoke, BuildStringResponse.GetBuilder },
+			{ MessageRequestType.SpecialCommand_GetKittenWeather, BuildCatsWeatherResponse.GetBuilder }
 
 		};
 	}

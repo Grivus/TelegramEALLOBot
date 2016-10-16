@@ -14,7 +14,7 @@ namespace TelergramEALLOBot
 {
 	class Program
 	{
-		private static readonly TelegramBotClient Bot = new TelegramBotClient( "OUR TOKEN WAS HERE" );
+		private static readonly TelegramBotClient Bot = new TelegramBotClient( "285884384:AAFu72EDmuQvDIrdVXEU5r9Rm6xhhT6czy0" );
 
 
 		static void Main( string[] args )

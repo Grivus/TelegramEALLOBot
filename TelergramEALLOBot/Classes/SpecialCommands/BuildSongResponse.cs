@@ -36,26 +36,6 @@ namespace TelergramEALLOBot.Classes.SpecialCommands
 			subject = aSubject;
 		}
 
-		private HtmlNode FindRecursive( string idClass, HtmlNode currentNode )
-		{
-			foreach ( var child in currentNode.ChildNodes )
-			{
-				if ( child.Attributes[ "class" ] != null )
-				{
-					Debug.Print( child.Attributes[ "class" ].Value );
-
-					if ( child.Attributes[ "class" ].Value == idClass )
-						return child;
-
-				}
-				var result = FindRecursive( idClass, child );
-				if ( result != null )
-					return result;
-			}
-
-			return null;
-		}
-
 		public string GetMessage()
 		{
 			string result = "";
@@ -63,7 +43,7 @@ namespace TelergramEALLOBot.Classes.SpecialCommands
 			string Url = "http://pleer.net/search?q=" + subject;
 			HtmlWeb web = new HtmlWeb();
 			HtmlDocument doc = web.Load( Url );
-			HtmlNode playlist = FindRecursive( "playlist", doc.DocumentNode );
+			HtmlNode playlist = Utils.FindRecursiveByClass( "playlist", doc.DocumentNode );
 			var nodes = playlist.ChildNodes["ol"].ChildNodes;
 
 			List<string> links = new List<string>();

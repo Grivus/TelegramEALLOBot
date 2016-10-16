@@ -65,6 +65,7 @@
     <Compile Include="Classes\DataBases\RequestsTypeDataBase.cs" />
     <Compile Include="Classes\DataBases\ResponseDataBase.cs" />
     <Compile Include="Classes\ResponseProcessor.cs" />
+    <Compile Include="Classes\SpecialCommands\BuildCatsWeatherResponse.cs" />
     <Compile Include="Classes\SpecialCommands\BuildStringResponse.cs" />
     <Compile Include="Classes\SpecialCommands\SpecialCommandsProcessorsMap.cs" />
     <Compile Include="Classes\SpecialCommands\BuildSongResponse.cs" />
