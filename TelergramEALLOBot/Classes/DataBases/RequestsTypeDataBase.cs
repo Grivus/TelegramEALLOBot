@@ -25,6 +25,7 @@ namespace TelergramEALLOBot.Classes
 		Songs,
 		SomethingStrange,
 		BadJoke,
+		GetKittensWeather,
 	}
 
 	public static class RequestsTypeDataBase
@@ -48,6 +49,7 @@ namespace TelergramEALLOBot.Classes
 			{ RequestType.Songs, new List<string>() { "спой","споём", "споем","петь"} } ,
 			{ RequestType.SomethingStrange, new List<string>() { "странное","странно"} } ,
 			{ RequestType.BadJoke, new List<string>() { "шутка","пошути", "пошутил"} } ,
+			{ RequestType.GetKittensWeather, new List<string>() { "расскажи","котятах", "погоду"} } ,
 
 		};
 

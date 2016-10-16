@@ -12,6 +12,8 @@ namespace TelergramEALLOBot.Classes
 		Command,
 		SpecialCommand_FindSong,
 		SpecialCommand_BadJoke,
+		SpecialCommand_GetKittenWeather,
+
 	}
 
 	public class ParsedMessage
