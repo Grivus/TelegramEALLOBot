@@ -46,6 +46,7 @@ namespace TelergramEALLOBot
 			Console.WriteLine( "Bot after start receiving" );
 
 			// для heroku
+			/*
 			int port = 1234;
 
 			var threadServer = new Thread(
@@ -70,7 +71,7 @@ namespace TelergramEALLOBot
 				} 
 			);
 			threadServer.Start();
-
+			*/
 			while ( true )
 			{
 				string line = Console.ReadLine();
@@ -79,7 +80,8 @@ namespace TelergramEALLOBot
 			}
 
 			Bot.StopReceiving();
-			threadServer.Abort();
+
+			//threadServer.Abort();
 		}
 
 		private static async void BotOnMessageReceived( object sender, MessageEventArgs messageEventArgs )
