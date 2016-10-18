@@ -64,7 +64,7 @@ namespace TelergramEALLOBot
 
 						TcpListener server = new TcpListener( IPAddress.Parse( "127.0.0.1" ), port );
 						server.Start();
-						Thread.Sleep( 30000 );
+						Thread.Sleep( 3000 );
 						server.Stop();
 					}
 				} 
