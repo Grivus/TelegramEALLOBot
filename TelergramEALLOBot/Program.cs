@@ -16,9 +16,6 @@ namespace TelergramEALLOBot
 {
 	class Program
 	{
-		private static TelegramBotClient Bot;
-
-
 		static void Main( string[] args )
 		{
 			string token = System.Environment.GetEnvironmentVariable( "TOKEN" );
@@ -28,7 +25,10 @@ namespace TelergramEALLOBot
 				token = Console.ReadLine();
 			}
 
-			Bot = new TelegramBotClient( token );
+			Console.WriteLine( "Before ctor" );
+			TelegramBotClient Bot = new TelegramBotClient( token );
+			Console.WriteLine( "After ctor" );
+
 
 			Bot.OnMessage += BotOnMessageReceived;
 			Bot.OnReceiveError += BotOnReceiveError;
@@ -71,6 +71,7 @@ namespace TelergramEALLOBot
 
 		private static async void BotOnMessageReceived( object sender, MessageEventArgs messageEventArgs )
 		{
+			var Bot = sender as TelegramBotClient;
 			var message = messageEventArgs.Message;
 			if ( message == null || message.Type != MessageType.TextMessage )
 				return;
