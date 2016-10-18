@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -29,6 +31,10 @@ namespace TelergramEALLOBot
 
 			Bot.StartReceiving();
 
+			// для heroku
+			TcpListener server = new TcpListener( IPAddress.Parse( "127.0.0.1" ), 1234 );
+			server.Start();
+
 			while ( true )
 			{
 				string line = Console.ReadLine();
@@ -37,7 +43,7 @@ namespace TelergramEALLOBot
 			}
 
 			Bot.StopReceiving();
-
+			server.Stop();
 		}
 
 		private static async void BotOnMessageReceived( object sender, MessageEventArgs messageEventArgs )
