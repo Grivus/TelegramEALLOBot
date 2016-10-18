@@ -36,7 +36,18 @@ namespace TelergramEALLOBot
 			Bot.StartReceiving();
 
 			// для heroku
-			TcpListener server = new TcpListener( IPAddress.Parse( "127.0.0.1" ), 1234 );
+			int port = 1234;
+
+			try
+			{
+				port = Int32.Parse( System.Environment.GetEnvironmentVariable( "PORT" ) );
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine( ex.ToString() );
+			}
+
+			TcpListener server = new TcpListener( IPAddress.Parse( "127.0.0.1" ), port );
 			server.Start();
 
 			while ( true )
