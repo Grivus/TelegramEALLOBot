@@ -1,2 +1,2 @@
-web: ./mono-build/bin/mono src/bin/TelergramNugetTest.exe
-local: mono src/bin/TelergramNugetTest.exe
+web: ./mono-build/bin/mono TelergramEALLOBot/bin/Debug/TelergramNugetTest.exe
+local: mono TelergramEALLOBot/bin/Debug/TelergramNugetTest.exe
