@@ -93,7 +93,7 @@ namespace TelergramEALLOBot.Classes
 						return child;
 
 				}
-				var result = FindRecursiveByClass( attributeValue, child );
+				var result = FindRecursiveByAttributeName( attributeName, attributeValue, child );
 				if ( result != null )
 					return result;
 			}
@@ -101,6 +101,26 @@ namespace TelergramEALLOBot.Classes
 			return null;
 		}
 
+		public static HtmlNode FindRecursiveByAttributeNameWithout( string attributeName, string attributeValue, string withoutAttrName, string withoutAttrVal, HtmlNode currentNode )
+		{
+			foreach ( var child in currentNode.ChildNodes )
+			{
+				if ( child.Attributes[ attributeName ] != null )
+				{
+					Debug.Print( child.Attributes[ attributeName ].Value );
+
+					if ( child.Attributes[ attributeName ].Value == attributeValue && 
+						( child.Attributes[ withoutAttrName ] == null || child.Attributes[ withoutAttrName ].Value != withoutAttrVal) )
+						return child;
+
+				}
+				var result = FindRecursiveByAttributeNameWithout( attributeName, attributeValue, withoutAttrName, withoutAttrVal, child );
+				if ( result != null )
+					return result;
+			}
+
+			return null;
+		}
 
 	}
 }

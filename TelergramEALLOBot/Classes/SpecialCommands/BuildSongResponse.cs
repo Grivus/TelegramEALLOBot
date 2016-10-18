@@ -43,19 +43,30 @@ namespace TelergramEALLOBot.Classes.SpecialCommands
 			string Url = "http://pleer.net/search?q=" + subject;
 			HtmlWeb web = new HtmlWeb();
 			HtmlDocument doc = web.Load( Url );
-			HtmlNode playlist = Utils.FindRecursiveByClass( "playlist", doc.DocumentNode );
-			var nodes = playlist.ChildNodes["ol"].ChildNodes;
 
-			List<string> links = new List<string>();
-			foreach ( var node in nodes )
+			try
 			{
-				if ( node.Attributes[ "link" ] != null )
-					links.Add( "http://pleer.net/tracks/" + node.Attributes[ "link" ].Value );
-			}
+				HtmlNode playlist = Utils.FindRecursiveByAttributeNameWithout( "class", "playlist", "style", "display: none", doc.DocumentNode );
+				//doc.DocumentNode.SelectSingleNode( ".//div[@class='playlist' and not(@style='display: none')]" );//Utils.FindRecursiveByClass( "playlist", doc.DocumentNode );
 
-			int randomIndex = new Random(DateTime.Now.Millisecond).Next( 0, links.Count );
-			int randomSongsIndex = new Random(DateTime.Now.Millisecond).Next( 0, ResponseDataBase.responseTypeText[ RequestType.Songs ].Count );
-			result = ResponseDataBase.responseTypeText[RequestType.Songs][ randomSongsIndex ] + links[ randomIndex ];
+				var nodes = playlist.ChildNodes[ "ol" ].ChildNodes;
+
+				List<string> links = new List<string>();
+				foreach ( var node in nodes )
+				{
+					if ( node.Attributes[ "link" ] != null )
+						links.Add( "http://pleer.net/tracks/" + node.Attributes[ "link" ].Value );
+				}
+
+				int randomIndex = new Random( DateTime.Now.Millisecond ).Next( 0, links.Count );
+				int randomSongsIndex = new Random( DateTime.Now.Millisecond ).Next( 0, ResponseDataBase.responseTypeText[ RequestType.Songs ].Count );
+				result = ResponseDataBase.responseTypeText[ RequestType.Songs ][ randomSongsIndex ] + links[ randomIndex ];
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine( ex.ToString() );
+				result = Utils.GetRandomResponse( RequestType.NoSongsFound );
+			}
 
 			return result;
 		}

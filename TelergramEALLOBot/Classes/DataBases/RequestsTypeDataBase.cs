@@ -26,6 +26,7 @@ namespace TelergramEALLOBot.Classes
 		SomethingStrange,
 		BadJoke,
 		GetKittensWeather,
+		NoSongsFound,
 	}
 
 	public static class RequestsTypeDataBase
