@@ -16,11 +16,15 @@ namespace TelergramEALLOBot
 {
 	class Program
 	{
-		private static readonly TelegramBotClient Bot = new TelegramBotClient( "285884384:AAFu72EDmuQvDIrdVXEU5r9Rm6xhhT6czy0" );
+		private static TelegramBotClient Bot;
 
 
 		static void Main( string[] args )
 		{
+			Console.WriteLine( "Enter a token:" );
+			string token = Console.ReadLine();
+
+			Bot = new TelegramBotClient( token );
 
 			Bot.OnMessage += BotOnMessageReceived;
 			Bot.OnReceiveError += BotOnReceiveError;
