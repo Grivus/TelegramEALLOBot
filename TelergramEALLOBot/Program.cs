@@ -21,8 +21,12 @@ namespace TelergramEALLOBot
 
 		static void Main( string[] args )
 		{
-			Console.WriteLine( "Enter a token:" );
-			string token = Console.ReadLine();
+			string token = System.Environment.GetEnvironmentVariable( "TOKEN" );
+			if ( token == null )
+			{
+				Console.WriteLine( "Enter a token:" );
+				token = Console.ReadLine();
+			}
 
 			Bot = new TelegramBotClient( token );
 
