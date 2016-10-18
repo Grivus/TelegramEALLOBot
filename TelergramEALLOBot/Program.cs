@@ -25,6 +25,9 @@ namespace TelergramEALLOBot
 				token = Console.ReadLine();
 			}
 
+			System.Net.ServicePointManager.ServerCertificateValidationCallback += ( o, certificate, chain, errors ) => true;
+			System.Security.Cryptography.AesCryptoServiceProvider b = new System.Security.Cryptography.AesCryptoServiceProvider();
+
 			Console.WriteLine( "Before ctor" );
 			TelegramBotClient Bot = new TelegramBotClient( token );
 			Console.WriteLine( "After ctor" );
