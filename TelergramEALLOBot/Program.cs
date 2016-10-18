@@ -37,7 +37,9 @@ namespace TelergramEALLOBot
 			var me = Bot.GetMeAsync().Result;
 			System.Console.WriteLine( "Hello my name is " + me.FirstName );
 
+			Console.WriteLine( "Bot before start receiving" );
 			Bot.StartReceiving();
+			Console.WriteLine( "Bot after start receiving" );
 
 			// для heroku
 			int port = 1234;
@@ -52,7 +54,9 @@ namespace TelergramEALLOBot
 			}
 
 			TcpListener server = new TcpListener( IPAddress.Parse( "127.0.0.1" ), port );
+			Console.WriteLine( "server before lis" );
 			server.Start();
+			Console.WriteLine( "server after lis" );
 
 			while ( true )
 			{
