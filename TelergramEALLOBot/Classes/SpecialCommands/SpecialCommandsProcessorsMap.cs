@@ -13,7 +13,9 @@ namespace TelergramEALLOBot.Classes
 		{
 			{ MessageRequestType.SpecialCommand_FindSong, BuildSongResponse.GetBuilder },
 			{ MessageRequestType.SpecialCommand_BadJoke, BuildStringResponse.GetBuilder },
-			{ MessageRequestType.SpecialCommand_GetKittenWeather, BuildCatsWeatherResponse.GetBuilder }
+			{ MessageRequestType.SpecialCommand_GetKittenWeather, BuildCatsWeatherResponse.GetBuilder },
+			{ MessageRequestType.SpecialCommand_DoorLocked, BuildHomeDoorLockedResponse.GetBuilder },
+
 
 		};
 	}

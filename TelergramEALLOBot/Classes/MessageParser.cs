@@ -20,16 +20,19 @@ namespace TelergramEALLOBot.Classes
 			result.wordsTokens = new List<string> ( messageText.Split( new char[] { '.', ',', ' ', '!', '?' } ) );
 
 			result.wordsTokens = result.wordsTokens.ConvertAll( x => x = x.ToLower() );
+			result.punctuationTokens = ( (messageText.ToCharArray()).Where( c => char.IsPunctuation( c ) ).ToList() );
 
 			result.messageType = messageText.IndexOf( '?' ) != -1 ? MessageRequestType.Question : MessageRequestType.Command;
 
 			var bestCandidates = Utils.GetBestCandidates( Utils.GetScoresForMessage( result ) );
 			if ( bestCandidates.Exists( x=> x.Key == RequestType.Songs) )
 				result.messageType = MessageRequestType.SpecialCommand_FindSong;
-
-			bestCandidates = Utils.GetBestCandidates( Utils.GetScoresForMessage( result ) );
+			
 			if ( bestCandidates.Exists( x => x.Key == RequestType.GetKittensWeather ) )
 				result.messageType = MessageRequestType.SpecialCommand_GetKittenWeather;
+			
+			if ( bestCandidates.Exists( x => x.Key == RequestType.DoorsLocked && (message.From.Id == 91470612 || message.From.FirstName == "Александра" && message.From.LastName == "Шерстобитова" )  ) )
+				result.messageType = MessageRequestType.SpecialCommand_DoorLocked;
 
 			if ( messageText.Contains( "300" ) || messageText.Contains( "триста" ) )
 				result.messageType = MessageRequestType.SpecialCommand_BadJoke;

@@ -13,7 +13,7 @@ namespace TelergramEALLOBot.Classes
 		SpecialCommand_FindSong,
 		SpecialCommand_BadJoke,
 		SpecialCommand_GetKittenWeather,
-
+		SpecialCommand_DoorLocked,
 	}
 
 	public class ParsedMessage
@@ -22,7 +22,7 @@ namespace TelergramEALLOBot.Classes
 
 		public MessageRequestType messageType;
 
-		public List<string> punctuationTokens = new List<string>();
+		public List<char> punctuationTokens = new List<char>();
 
 		public Telegram.Bot.Types.Message rawMessage;
 
