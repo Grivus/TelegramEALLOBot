@@ -31,7 +31,7 @@ namespace TelergramEALLOBot.Classes
 			if ( bestCandidates.Exists( x => x.Key == RequestType.GetKittensWeather ) )
 				result.messageType = MessageRequestType.SpecialCommand_GetKittenWeather;
 			
-			if ( bestCandidates.Exists( x => x.Key == RequestType.DoorsLocked && (message.From.Id == 91470612 || message.From.FirstName == "Александра" && message.From.LastName == "Шерстобитова" )  ) )
+			if ( bestCandidates.Exists( x => x.Key == RequestType.DoorsLocked && (message.From.Id == 91470612 || message.From.Id == 135320446 )  ) )
 				result.messageType = MessageRequestType.SpecialCommand_DoorLocked;
 
 			if ( messageText.Contains( "300" ) || messageText.Contains( "триста" ) )
@@ -40,8 +40,10 @@ namespace TelergramEALLOBot.Classes
 
 
 
-			if ( messageText.Contains( "э! аллё!" ) || messageText.Contains( "э, аллё!" ) || messageText.Contains( "э, аллё" ) || messageText.Contains( "э,аллё" )
-				|| messageText.Contains( "э аллё" ) || messageText.Contains( "э алле" ) || messageText.Contains( "э, алле" ) || messageText.Contains( "э! аллё" ) )
+			if ( (  messageText.Contains( "э! аллё!" ) || messageText.Contains( "э, аллё!" ) || messageText.Contains( "э, аллё" ) || messageText.Contains( "э,аллё" )
+				 || messageText.Contains( "э аллё" ) || messageText.Contains( "э алле" ) || messageText.Contains( "э, алле" ) || messageText.Contains( "э! аллё" ) 
+				 )
+				 || message.Chat.Type == Telegram.Bot.Types.Enums.ChatType.Private )
 				result.IsMessageForMe = true;
 			else
 				result.IsMessageForMe = false;
